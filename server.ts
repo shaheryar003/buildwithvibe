@@ -2,14 +2,18 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const DATA_FILE = path.join(import.meta.dirname, 'data.json');
+const DATA_FILE = path.join(__dirname, 'data.json');
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(import.meta.dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Ensure the data file exists
 if (!fs.existsSync(DATA_FILE)) {
